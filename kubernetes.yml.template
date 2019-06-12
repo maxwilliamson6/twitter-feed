@@ -25,16 +25,16 @@ spec:
           containerPort: ${PORT}
           protocol: TCP
         volumeMounts:
-          - name: podinfo
-            mountPath: /tmp
-            readOnly: false
-      volumes:
         - name: podinfo
-          downwardAPI:
-            items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
+          mountPath: /tmp
+          readOnly: false
+      volumes:
+      - name: podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
       imagePullSecrets:
         - name: wercker
 ---
@@ -50,7 +50,7 @@ spec:
   - port: 30000
     targetPort: ${PORT}
   selector:
-    app: twitter-feed#
+    app: twitter-feed
     color: blue
   type: ClusterIP
---- 
+---
